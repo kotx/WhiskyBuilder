@@ -12,13 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Tap homebrew-apple
-        run: brew tap whisky/apple http://github.com/Whisky-App/homebrew-apple
+        run: brew tap whisky/apple http://github.com/kotx/homebrew-apple
       - name: Check cache for compiler
         id: compiler-cache
         uses: actions/cache@v3
         with:
           path: /usr/local/Cellar/game-porting-toolkit-compiler
-          key: game-porting-toolkit-compiler-0.1
+          key: game-porting-toolkit-compiler-0.2
       - name: Install compiler
         if: steps.compiler-cache.outputs.cache-hit != 'true'
         run: |
@@ -27,13 +27,13 @@ jobs:
         if: steps.compiler-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v3
         with:
-          key: game-porting-toolkit-compiler-0.1
+          key: game-porting-toolkit-compiler-0.2
           path: /usr/local/Cellar/game-porting-toolkit-compiler
       - name: Relink compiler
         if: steps.compiler-cache.outputs.cache-hit == 'true'
         run: |
           brew install whisky/apple/game-porting-toolkit-compiler
-          ln -s /usr/local/Cellar/game-porting-toolkit-compiler/0.1/ /usr/local/opt/game-porting-toolkit-compiler
+          ln -s /usr/local/Cellar/game-porting-toolkit-compiler/0.2/ /usr/local/opt/game-porting-toolkit-compiler
       - name: Install taps
         run: brew install whisky/apple/game-porting-toolkit winetricks || true
       - name: Trim Files
